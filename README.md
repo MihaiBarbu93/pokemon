@@ -2,6 +2,9 @@
 
 Aceasta este o aplicație Pokédex modernă construită cu **Angular standalone components** și **Angular Material**, care consumă date din [PokeAPI](https://pokeapi.co/). Proiectul include funcționalități de căutare, detalii pentru fiecare Pokémon, wishlist, listă de Pokemoni prinși, animații și interfață responsive.
 
+🔗 Live Demo: [https://mihaibarbu93.github.io/pokemon/](https://mihaibarbu93.github.io/pokemon/)
+
+
 ## 🔧 Funcționalități
 
 - 🔍 Căutare în timp real după numele Pokémonului
