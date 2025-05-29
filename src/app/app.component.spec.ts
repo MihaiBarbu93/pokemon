@@ -3,9 +3,9 @@ import { AppComponent } from './app.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { importProvidersFrom } from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { By } from '@angular/platform-browser';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 describe('AppComponent (standalone)', () => {
   let fixture: ComponentFixture<AppComponent>;
@@ -17,7 +17,7 @@ describe('AppComponent (standalone)', () => {
       providers: [
         importProvidersFrom(
           RouterTestingModule,
-          MatSidenavModule,
+          MatToolbarModule,
           MatButtonModule
         ),
         provideAnimations()
@@ -33,8 +33,8 @@ describe('AppComponent (standalone)', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render 3 navigation buttons in sidenav', () => {
-    const buttons = fixture.debugElement.queryAll(By.css('mat-sidenav button'));
+  it('should render 3 navigation buttons in toolbar', () => {
+    const buttons = fixture.debugElement.queryAll(By.css('mat-toolbar button'));
     expect(buttons.length).toBe(3);
     expect(buttons[0].nativeElement.textContent).toContain('Home');
     expect(buttons[1].nativeElement.textContent).toContain('Caught');

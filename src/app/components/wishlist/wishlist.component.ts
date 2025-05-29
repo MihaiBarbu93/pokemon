@@ -4,6 +4,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { Pokemon } from '../../models/pokemon.model';
+import { Router } from '@angular/router';
 
 @Component({
   standalone: true,
@@ -15,13 +17,21 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatIconModule]
 })
 export class WishlistComponent implements OnInit {
-  wishlist: any[] = [];
+  wishlist: Pokemon[] = [];
+
+  constructor(private router: Router) {}
+
 
   ngOnInit(): void {
     this.wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
   }
 
-  remove(pokemon: any) {
+
+  details(pokemon: Pokemon) {
+    this.router.navigate(['/details', pokemon.id]);
+  }
+
+  remove(pokemon: Pokemon) {
     const confirmed = confirm(`Are you sure you want to remove ${pokemon.name}?`);
     if (confirmed) {
       this.wishlist = this.wishlist.filter(p => p.id !== pokemon.id);

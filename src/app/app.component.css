@@ -1,9 +1,18 @@
-.sidenav-container {
-    height: 100vh;
-  }
-  
-  .sidenav {
-    width: 200px;
-    padding: 1rem;
-  }
-  
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.main-content {
+  padding: 16px;
+}

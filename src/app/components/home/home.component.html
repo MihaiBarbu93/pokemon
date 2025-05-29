@@ -10,7 +10,10 @@
       </div>
       
       <div class="card-grid">
-        <mat-card *ngFor="let pokemon of filteredPokemon" class="pokemon-card">
+        <div *ngIf="showCatchAnimation" class="catch-animation">
+          <img src="assets/images/catch.gif" alt="Catching pokemon" />
+        </div>
+        <mat-card *ngFor="let pokemon of filteredPokemon" class="pokemon-card"  (click)="details(pokemon)">
           <img
           mat-card-image
           [src]="pokemon.image"
@@ -18,10 +21,10 @@
           alt="{{ pokemon.name }}"/>
           <mat-card-title>{{ pokemon.name }}</mat-card-title>
           <mat-card-actions>
-            <button
+            <button 
             mat-icon-button
             color="primary"
-            (click)="catch(pokemon)"
+            (click)="catch(pokemon); $event.stopPropagation()"
             [matTooltip]="isInCaught(pokemon) ? 'Release Pokémon' : 'Catch Pokémon'">
             <mat-icon>
               {{ isInCaught(pokemon) ? 'highlight_off' : 'catching_pokemon' }}
@@ -29,18 +32,11 @@
           </button>
           
             <button
-              mat-raised-button
-              color="primary"
-              (click)="details(pokemon)">
-              Details
-            </button>
-          
-            <button
             mat-icon-button
             color="accent"
-            (click)="addToWishlist(pokemon)"
+            (click)="addToWishlist(pokemon) ; $event.stopPropagation()"
             [matTooltip]="isInWishlist(pokemon) ? 'Remove from Wishlist' : 'Add to Wishlist'">
-            <mat-icon>
+            <mat-icon style="color: red;">
               {{ isInWishlist(pokemon) ? 'favorite' : 'favorite_border' }}
             </mat-icon>
           </button>

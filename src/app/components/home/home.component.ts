@@ -9,6 +9,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { PokemonService } from '../../services/services/pokemon.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { Router } from '@angular/router';
+import { Pokemon } from '../../models/pokemon.model';
+import { forkJoin } from 'rxjs';
+
 
 @Component({
   standalone: true,
@@ -29,16 +33,17 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 })
 export class HomeComponent implements OnInit {
   searchTerm = '';
-  pokemonList: any[] = [];
-  filteredPokemon: any[] = [];
+  pokemonList: Pokemon[] = [];
+  filteredPokemon: Pokemon[] = [];
   loading = false;
   offset = 0;
   pokemonService = inject(PokemonService);
-  caughtList: any[] = [];
-  wishlist: any[] = [];
+  caughtList: Pokemon[] = [];
+  wishlist: Pokemon[] = [];
+  showCatchAnimation = false;
 
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     this.loadStoredLists();
@@ -49,29 +54,31 @@ export class HomeComponent implements OnInit {
   loadPokemon() {
     this.loading = true;
     this.pokemonService.getPokemonList(20, this.offset).subscribe((list) => {
-      const detailRequests = list.map((pokemon: any) =>
-        this.pokemonService.getPokemonDetails(pokemon.url)
+      const detailRequests = list.map((pokemon: Pokemon) =>
+        this.pokemonService.getPokemonDetails(pokemon.url!)
       );
   
-      Promise.all(detailRequests.map((req: any) => req.toPromise())).then((details: any[]) => {
+      forkJoin(detailRequests).subscribe((details: Pokemon[]) => {
         const newData = details.map(d => ({
+          ...d,
           id: d.id,
           name: d.name,
-          image: d.sprites.front_default
+          image: d.sprites?.front_default ?? 'assets/images/pokeball.png',
         }));
         this.pokemonList = [...this.pokemonList, ...newData];
         this.filteredPokemon = [...this.pokemonList];
         this.offset += 20;
         this.loading = false;
       });
+      
     });
   }
 
-  isInCaught(pokemon: any): boolean {
+  isInCaught(pokemon: Pokemon): boolean {
     return this.caughtList.some(p => p.id === pokemon.id);
   }
   
-  isInWishlist(pokemon: any): boolean {
+  isInWishlist(pokemon: Pokemon): boolean {
     return this.wishlist.some(p => p.id === pokemon.id);
   }
 
@@ -89,17 +96,22 @@ export class HomeComponent implements OnInit {
     );
   }
 
-  details(pokemn: any) {
-
+  details(pokemon: Pokemon) {
+    this.router.navigate(['/details', pokemon.id]);
   }
 
-  catch(pokemon: any) {
+  catch(pokemon: Pokemon) {
     const caught = JSON.parse(localStorage.getItem('caughtList') || '[]');
-    const index = caught.findIndex((p: any) => p.id === pokemon.id);
+    const index = caught.findIndex((p: Pokemon) => p.id === pokemon.id);
   
     if (index > -1) {
       caught.splice(index, 1);
     } else {
+      this.showCatchAnimation = true;
+
+      setTimeout(() => {
+        this.showCatchAnimation = false;
+      }, 4000);
       caught.push(pokemon);
     }
   
@@ -108,9 +120,9 @@ export class HomeComponent implements OnInit {
   }
   
   
-  addToWishlist(pokemon: any) {
+  addToWishlist(pokemon: Pokemon) {
     const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
-    const index = wishlist.findIndex((p: any) => p.id === pokemon.id);
+    const index = wishlist.findIndex((p: Pokemon) => p.id === pokemon.id);
   
     if (index > -1) {
       wishlist.splice(index, 1);
@@ -121,6 +133,7 @@ export class HomeComponent implements OnInit {
     this.wishlist = wishlist;
     localStorage.setItem('wishlist', JSON.stringify(wishlist));
   }
+  
   
   
 

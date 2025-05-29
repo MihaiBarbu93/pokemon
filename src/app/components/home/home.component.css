@@ -16,6 +16,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
 
   .loading-spinner {
@@ -28,6 +30,38 @@
     text-align: center;
     margin: 2rem 0;
   }
+
+  .catch-animation {
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    pointer-events: none;
+    animation: pop 1s ease-out;
+  }
+  
+  .pokemon-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  
+  @keyframes pop {
+    0% {
+      opacity: 0;
+      transform: translateX(-50%) scale(0.5);
+    }
+    50% {
+      opacity: 1;
+      transform: translateX(-50%) scale(1.2);
+    }
+    100% {
+      opacity: 0;
+      transform: translateX(-50%) scale(0.8);
+    }
+  }
+  
   
   
   

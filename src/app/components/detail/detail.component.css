@@ -1,0 +1,93 @@
+.detail-container {
+    display: flex;
+    gap: 3rem;
+    padding: 2rem;
+    flex-wrap: wrap;
+  }
+  
+  .left-panel {
+    flex: 1;
+    min-width: 250px;
+    max-width: 300px;
+    text-align: center;
+    background: #f2f2f2;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .left-panel img {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .right-panel {
+    flex: 2;
+    min-width: 300px;
+    padding: 1.5rem;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .right-panel ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .right-panel li {
+    margin-bottom: 0.5rem;
+  }
+  .type-badges {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  
+  .type-badge {
+    padding: 0.3rem 0.6rem;
+    border-radius: 12px;
+    font-weight: bold;
+    color: #fff;
+    background-color: gray;
+    text-transform: capitalize;
+  }
+
+  .catch-animation {
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    pointer-events: none;
+    animation: pop 1s ease-out;
+  }
+  
+  @keyframes pop {
+    0% {
+      opacity: 0;
+      transform: translateX(-50%) scale(0.5);
+    }
+    50% {
+      opacity: 1;
+      transform: translateX(-50%) scale(1.2);
+    }
+    100% {
+      opacity: 0;
+      transform: translateX(-50%) scale(0.8);
+    }
+  }
+  
+
+  
+  
+  .type-fire { background-color: #f08030; }
+  .type-water { background-color: #6890f0; }
+  .type-grass { background-color: #78c850; }
+  .type-bug { background-color: #78c850; }
+  .type-flying { background-color: #2edee1; }
+  .type-poison { background-color: #df1ae6; }
+  .type-normal { background-color: #91dfe6; }
+  .type-fairy { background-color: #e31285; }
+  .type-electric { background-color: #e8f008; }
+  

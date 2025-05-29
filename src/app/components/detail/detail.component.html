@@ -1,1 +1,80 @@
-<p>detail works!</p>
+
+<div class="detail-container" *ngIf="pokemon.sprites">
+  <div *ngIf="showCatchAnimation" class="catch-animation">
+    <img src="assets/images/catch.gif" alt="Catching pokemon" />
+  </div>
+    <div class="left-panel">
+      <img [@pokemonAppear] [src]="pokemon.sprites!.front_default!" [alt]="pokemon.name" />
+      <h2>{{ pokemon.name | titlecase }}</h2>
+      <p><strong>ID:</strong> #{{ pokemon.id }}</p>
+      <p><strong>Types:</strong></p>
+        <div class="type-badges">
+        <span *ngFor="let type of pokemon.types" class="type-badge type-{{ type.type.name }}">
+            {{ type.type.name }}
+        </span>
+        </div>
+        <button 
+        mat-icon-button
+        color="primary"
+        (click)="catch(pokemon)"
+        [matTooltip]="isInCaught(pokemon) ? 'Release Pokémon' : 'Catch Pokémon'">
+        <mat-icon>
+          {{ isInCaught(pokemon) ? 'highlight_off' : 'catching_pokemon' }}
+        </mat-icon>
+      </button>  
+      <button
+      mat-icon-button
+      color="accent"
+      (click)="addToWishlist(pokemon)"
+      [matTooltip]="isInWishlist(pokemon) ? 'Remove from Wishlist' : 'Add to Wishlist'">
+      <mat-icon style="color: red;">
+        {{ isInWishlist(pokemon) ? 'favorite' : 'favorite_border' }}
+      </mat-icon>
+    </button>
+    </div>
+    <div class="right-panel">
+    <div class="row">
+        <div class="col-6">
+            <h3>Stats</h3>
+            <ul>
+              <li *ngFor="let stat of pokemon.stats">
+                <strong>{{ stat.stat.name | titlecase }}:</strong> {{ stat.base_stat }}
+              </li>
+            </ul>
+        
+            <h3>Abilities</h3>
+            <ul>
+              <li *ngFor="let ability of pokemon.abilities">
+                {{ ability.ability.name }}
+              </li>
+            </ul>
+        
+            <p><strong>Base experience:</strong> {{ pokemon.base_experience }}</p>
+            <p><strong>Height:</strong> {{ pokemon.height! / 10 }} m</p>
+            <p><strong>Weight:</strong> {{ pokemon.weight! / 10 }} kg</p>
+            
+            <h3>Sprites</h3>
+            <img [src]="pokemon.sprites!.front_default!" alt="Front" />
+            <img [src]="pokemon.sprites!.back_default!" alt="Back" />
+            <img [src]="pokemon.sprites!.front_shiny!" alt="Front Shiny" />
+            <img [src]="pokemon.sprites!.back_shiny!" alt="Back Shiny" />
+        </div>
+        <div class="col-6">
+            <h3>Moves</h3>
+            <ul>
+                <li *ngFor="let move of pokemon?.moves?.slice(0, 5)">
+                    {{ move.move.name }}
+                  </li>
+            </ul>
+            <h3>Game Appearances</h3>
+            <ul>
+                <li *ngFor="let version of pokemon?.game_indices?.slice(0, 5)">
+                    {{ version.version.name }}
+                  </li>
+            </ul>
+
+        </div>
+    </div>
+  </div>
+</div>
+  

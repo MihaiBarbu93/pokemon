@@ -1,13 +1,13 @@
 <h2>Caught Pokémon</h2>
 <div class="card-grid">
-  <mat-card *ngFor="let pokemon of caughtList" class="pokemon-card">
+  <mat-card *ngFor="let pokemon of caughtList" class="pokemon-card" (click)="details(pokemon)">
     <img mat-card-image [src]="pokemon.image" alt="{{ pokemon.name }}" />
     <mat-card-title>{{ pokemon.name }}</mat-card-title>
     <mat-card-actions>
         <button
         mat-icon-button
         color="primary"
-        (click)="remove(pokemon)"
+        (click)="remove(pokemon); $event.stopPropagation()"
         matTooltip="Release Pokémon">
         <mat-icon>
           {{ 'highlight_off' }}

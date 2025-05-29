@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @Component({
   standalone: true,
@@ -9,7 +9,7 @@ import { RouterModule } from '@angular/router';
   templateUrl: './app.component.html',
   imports: [
     RouterModule,
-    MatSidenavModule,
+    MatToolbarModule,
     MatButtonModule,
   ]
 })

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, forkJoin } from 'rxjs';
+import { map } from 'rxjs';
+import { Pokemon, PokemonListResponse } from '../../models/pokemon.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,15 +11,18 @@ export class PokemonService {
 
   constructor(private http: HttpClient) {}
 
-  // Aduce o listă paginată de Pokémoni
   getPokemonList(limit = 20, offset = 0) {
-    return this.http.get<any>(`${this.baseUrl}/pokemon?limit=${limit}&offset=${offset}`).pipe(
+    return this.http.get<PokemonListResponse>(`${this.baseUrl}/pokemon?limit=${limit}&offset=${offset}`).pipe(
       map(response => response.results)
     );
   }
 
-  // Aduce detalii pentru fiecare Pokémon (pentru imagine, stats etc.)
   getPokemonDetails(url: string) {
-    return this.http.get<any>(url);
+    return this.http.get<Pokemon>(url);
   }
+
+  getPokemonDetailsByName(name: string) {
+    return this.http.get<Pokemon>(`${this.baseUrl}/pokemon/${name}`);
+  }
+  
 }
