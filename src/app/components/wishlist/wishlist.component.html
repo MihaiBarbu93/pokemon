@@ -1,1 +1,18 @@
-<p>wishlist works!</p>
+<h2>Wishlist</h2>
+<div class="card-grid">
+  <mat-card *ngFor="let pokemon of wishlist" class="pokemon-card">
+    <img mat-card-image [src]="pokemon.image" alt="{{ pokemon.name }}" />
+    <mat-card-title>{{ pokemon.name }}</mat-card-title>
+    <mat-card-actions>
+      <button
+      mat-icon-button
+      color="primary"
+      (click)="remove(pokemon)"
+      matTooltip="Remove from Wishlist">
+      <mat-icon>
+        {{ 'highlight_off' }}
+      </mat-icon>
+  </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

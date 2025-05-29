@@ -1,12 +1,18 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatButtonModule } from '@angular/material/button';
+import { RouterModule } from '@angular/router';
 
 @Component({
+  standalone: true,
   selector: 'app-root',
-  imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  imports: [
+    RouterModule,
+    MatSidenavModule,
+    MatButtonModule,
+  ]
 })
 export class AppComponent {
-  title = 'pokedex-app';
+  title = 'Pokemon';
 }
